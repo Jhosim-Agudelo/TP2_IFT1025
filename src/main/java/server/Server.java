@@ -1,14 +1,14 @@
 package server;
 
 import javafx.util.Pair;
+import server.models.Course;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Server {
 
@@ -91,7 +91,30 @@ public class Server {
      @throws Exception si une erreur se produit lors de la lecture du fichier ou de l'écriture de l'objet dans le flux
      */
     public void handleLoadCourses(String arg) {
-        // TODO: implémenter cette méthode
+        ArrayList<Course> listOfCourses = new ArrayList<>();
+        try{
+            Scanner scan = new Scanner(new File("server/data/cours.txt"));
+
+            while(scan.hasNext()){
+                String code = scan.next();
+                String name = scan.next();
+                String session = scan.next();
+                scan.nextLine();
+                if (session.equals(arg) ) {
+                    listOfCourses.add(new Course(name, code, session));
+                }
+            }
+            scan.close();
+            FileOutputStream fileOS = new FileOutputStream("listOfCourses.dat");
+            ObjectOutputStream os = new ObjectOutputStream(fileOS);
+            os.writeObject(listOfCourses);
+            os.close();
+
+
+        }catch(IOException ex){
+            System.out.println("Erreur se produit lors de la lecture du fichier ou " +
+                                "de l'écriture de l'objet dans le flux");
+        }
     }
 
     /**
