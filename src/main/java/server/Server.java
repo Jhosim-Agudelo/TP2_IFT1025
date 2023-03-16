@@ -2,6 +2,7 @@ package server;
 
 import javafx.util.Pair;
 import server.models.Course;
+import server.models.RegistrationForm;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -111,19 +112,31 @@ public class Server {
             os.close();
 
 
-        }catch(IOException ex){
+        }catch(Exception ex){
             System.out.println("Erreur se produit lors de la lecture du fichier ou " +
                                 "de l'écriture de l'objet dans le flux");
         }
     }
 
     /**
-     Récupérer l'objet 'RegistrationForm' envoyé par le client en utilisant 'objectInputStream', l'enregistrer dans un fichier texte
-     et renvoyer un message de confirmation au client.
-     @throws Exception si une erreur se produit lors de la lecture de l'objet, l'écriture dans un fichier ou dans le flux de sortie.
+     Récupérer l'objet 'RegistrationForm' envoyé par le client en utilisant 'objectInputStream',
+     l'enregistrer dans un fichier texte et renvoyer un message de confirmation au client.
+     @throws Exception si une erreur se produit lors de la lecture de l'objet, l'écriture dans un
+     fichier ou dans le flux de sortie.
      */
     public void handleRegistration() {
-        // TODO: implémenter cette méthode
+        try {
+            ObjectInputStream is = new ObjectInputStream(new FileInputStream("regristationform.dat"));
+            RegistrationForm rf = (RegistrationForm) is.readObject();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("server/data/inscription.txt"));
+            writer.append("\n Automne"+rf.getMatricule()+"\t"+rf.getPrenom()+"\t"+rf.getNom()+"\t"+rf.getEmail());
+            writer.close();
+
+        }catch (Exception ex){
+            System.out.println("erreur se produit lors de la lecture de l'objet, l'écriture dans un" +
+                                "fichier ou dans le flux de sortie.");
+        }
     }
 }
 
