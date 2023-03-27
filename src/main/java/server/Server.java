@@ -106,10 +106,7 @@ public class Server {
                 }
             }
             scan.close();
-
-            ObjectOutputStream os = new ObjectOutputStream(this.client.getOutputStream());
-            os.writeObject(listOfCourses);
-            os.close();
+            objectOutputStream.writeObject(listOfCourses);
 
         }catch(IOException ex){
             System.out.println("Erreur se produit lors de la lecture du fichier ou " +
@@ -125,8 +122,8 @@ public class Server {
      */
     public void handleRegistration() {
         try {
-            ObjectInputStream is = new ObjectInputStream(client.getInputStream());
-            RegistrationForm rf = (RegistrationForm) is.readObject();
+
+            RegistrationForm rf = (RegistrationForm) objectInputStream.readObject();
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(
                                                 "src/main/java/server/data/inscription.txt"));
