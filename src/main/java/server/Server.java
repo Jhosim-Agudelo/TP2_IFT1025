@@ -94,7 +94,7 @@ public class Server {
     public void handleLoadCourses(String arg) {
         ArrayList<Course> listOfCourses = new ArrayList<>();
         try{
-            Scanner scan = new Scanner(new File("server/data/cours.txt"));
+            Scanner scan = new Scanner(new File("src/main/java/server/data/cours.txt"));
 
             while(scan.hasNext()){
                 String code = scan.next();
@@ -106,11 +106,10 @@ public class Server {
                 }
             }
             scan.close();
-            FileOutputStream fileOS = new FileOutputStream("listOfCourses.dat");
-            ObjectOutputStream os = new ObjectOutputStream(fileOS);
+
+            ObjectOutputStream os = new ObjectOutputStream(this.client.getOutputStream());
             os.writeObject(listOfCourses);
             os.close();
-
 
         }catch(IOException ex){
             System.out.println("Erreur se produit lors de la lecture du fichier ou " +
@@ -126,12 +125,14 @@ public class Server {
      */
     public void handleRegistration() {
         try {
-            ObjectInputStream is = new ObjectInputStream(new FileInputStream("regristationform.dat"));
+            ObjectInputStream is = new ObjectInputStream(client.getInputStream());
             RegistrationForm rf = (RegistrationForm) is.readObject();
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter("server/data/inscription.txt"));
-            writer.append("\n Automne"+rf.getMatricule()+"\t"+rf.getPrenom()+"\t"+rf.getNom()+"\t"+rf.getEmail());
+            BufferedWriter writer = new BufferedWriter(new FileWriter(
+                                                "src/main/java/server/data/inscription.txt"));
+            writer.append("\n Automne" +rf.getMatricule()+"\t"+rf.getPrenom()+"\t"+rf.getNom()+"\t"+rf.getEmail());
             writer.close();
+            System.out.println("success");
 
         }catch (IOException | ClassNotFoundException ex){
             System.out.println("erreur se produit lors de la lecture de l'objet, l'écriture dans un" +
