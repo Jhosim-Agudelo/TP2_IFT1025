@@ -112,7 +112,7 @@ public class Server {
             os.close();
 
 
-        }catch(Exception ex){
+        }catch(IOException ex){
             System.out.println("Erreur se produit lors de la lecture du fichier ou " +
                                 "de l'écriture de l'objet dans le flux");
         }
@@ -121,7 +121,7 @@ public class Server {
     /**
      Récupérer l'objet 'RegistrationForm' envoyé par le client en utilisant 'objectInputStream',
      l'enregistrer dans un fichier texte et renvoyer un message de confirmation au client.
-     @throws Exception si une erreur se produit lors de la lecture de l'objet, l'écriture dans un
+     @throws Exception si une erreur se produit lors de la lecture de l'objet, l'écriture dans une
      fichier ou dans le flux de sortie.
      */
     public void handleRegistration() {
@@ -133,7 +133,7 @@ public class Server {
             writer.append("\n Automne"+rf.getMatricule()+"\t"+rf.getPrenom()+"\t"+rf.getNom()+"\t"+rf.getEmail());
             writer.close();
 
-        }catch (Exception ex){
+        }catch (IOException | ClassNotFoundException ex){
             System.out.println("erreur se produit lors de la lecture de l'objet, l'écriture dans un" +
                                 "fichier ou dans le flux de sortie.");
         }
