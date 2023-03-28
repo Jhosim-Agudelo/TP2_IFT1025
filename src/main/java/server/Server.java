@@ -105,9 +105,7 @@ public class Server {
                 }
             }
             scan.close();
-            System.out.println(listOfCourses);
             objectOutputStream.writeObject(listOfCourses);
-
         }catch(IOException ex){
             System.out.println("Erreur se produit lors de la lecture du fichier ou " +
                                 "de l'écriture de l'objet dans le flux");
