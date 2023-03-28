@@ -100,12 +100,12 @@ public class Server {
                 String code = scan.next();
                 String name = scan.next();
                 String session = scan.next();
-                scan.nextLine();
                 if (session.equals(arg) ) {
                     listOfCourses.add(new Course(name, code, session));
                 }
             }
             scan.close();
+            System.out.println(listOfCourses);
             objectOutputStream.writeObject(listOfCourses);
 
         }catch(IOException ex){
@@ -127,6 +127,7 @@ public class Server {
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(
                                                 "src/main/java/server/data/inscription.txt"));
+
             writer.append("\n Automne" +rf.getMatricule()+"\t"+rf.getPrenom()+"\t"+rf.getNom()+"\t"+rf.getEmail());
             writer.close();
             System.out.println("success");
