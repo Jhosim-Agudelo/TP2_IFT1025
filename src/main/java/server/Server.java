@@ -124,11 +124,15 @@ public class Server {
             RegistrationForm rf = (RegistrationForm) objectInputStream.readObject();
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(
-                                                "src/main/java/server/data/inscription.txt"));
-
-            writer.append("\n Automne" +rf.getMatricule()+"\t"+rf.getPrenom()+"\t"+rf.getNom()+"\t"+rf.getEmail());
+                                                "src/main/java/server/data/inscription.txt",true));
+            writer.newLine();
+            writer.append(rf.getCourse().getSession()+"\t"+rf.getCourse().getCode()+"\t"+rf.getMatricule()+"\t"
+                            +rf.getPrenom()+"\t"+rf.getNom()+"\t"+rf.getEmail());
+            writer.newLine();
             writer.close();
-            System.out.println("success");
+            objectOutputStream.writeObject("Félicitations! Inscription réussie de "+rf.getPrenom()+
+                                            " au cours "+rf.getCourse().getCode());
+
 
         }catch (IOException | ClassNotFoundException ex){
             System.out.println("erreur se produit lors de la lecture de l'objet, l'écriture dans un" +
