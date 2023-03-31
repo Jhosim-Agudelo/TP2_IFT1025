@@ -128,7 +128,6 @@ public class Server {
             writer.newLine();
             writer.append(rf.getCourse().getSession()+"\t"+rf.getCourse().getCode()+"\t"+rf.getMatricule()+"\t"
                             +rf.getPrenom()+"\t"+rf.getNom()+"\t"+rf.getEmail());
-            writer.newLine();
             writer.close();
             objectOutputStream.writeObject("Félicitations! Inscription réussie de "+rf.getPrenom()+
                                             " au cours "+rf.getCourse().getCode());
