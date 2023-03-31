@@ -76,7 +76,7 @@ public class Client {
                 if (followingAnswer.equals("1") ){
                     main(args);
                 }else{
-                    System.out.println("on va s'inscrire");
+                    System.out.println("on va s'inscrire!");
                 }
             }
             scan.close();
