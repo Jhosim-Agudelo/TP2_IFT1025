@@ -58,6 +58,7 @@ public class Client {
 
     public static void inscriptionCours(Scanner scan,ArrayList<Course> listOfCourses) throws IOException,
             IllegalArgumentException, ClassNotFoundException {
+
         Socket clientSocket = new Socket("127.0.0.1", 1337);
         ObjectOutputStream os = new ObjectOutputStream(clientSocket.getOutputStream());
         ObjectInputStream is = new ObjectInputStream(clientSocket.getInputStream());
@@ -102,9 +103,10 @@ public class Client {
             while (scan.hasNext()){
 
                 affichageDesCours(scan,listOfCourses);
+
                 System.out.print(messageSecondaire);
-                System.out.println(listOfCourses);
                 String followingAnswer = scan.nextLine();
+
                 if (followingAnswer.equals("1") ){
                     main(args);
                 }else{
@@ -118,7 +120,7 @@ public class Client {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }catch (IllegalArgumentException e){
-            System.out.println("Le cours n'est pas dans la liste des cours");
+            System.out.println("Le cours n'est pas dans la liste des cours!");
             main(args);
         }
     }
