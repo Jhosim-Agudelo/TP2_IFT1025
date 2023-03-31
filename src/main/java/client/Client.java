@@ -2,6 +2,7 @@ package client;
 
 
 import server.models.Course;
+import server.models.RegistrationForm;
 
 import java.io.*;
 import java.net.Socket;
@@ -19,7 +20,8 @@ public class Client {
             "\n2. Inscription à un cours\n>Choix: ";
 
 
-    public static void affichageDesCours(Scanner scan) throws IOException, ClassNotFoundException {
+    public static void affichageDesCours(Scanner scan,ArrayList<Course> listOfCourses)
+                                            throws IOException, ClassNotFoundException {
 
         Socket clientSocket = new Socket("127.0.0.1", 1337);
         ObjectOutputStream os = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -40,7 +42,8 @@ public class Client {
                     break;
             }
 
-            ArrayList<Course> listOfCourses = (ArrayList<Course>) is.readObject();
+            listOfCourses.addAll((ArrayList<Course>) is.readObject());
+
             String session = listOfCourses.get(0).getSession();
             System.out.println("Les cours offerts pendant la session d'"+session+" sont:");
 
@@ -53,30 +56,59 @@ public class Client {
 
     }
 
-    public static void inscriptionCours() throws IOException {
+    public static void inscriptionCours(Scanner scan,ArrayList<Course> listOfCourses) throws IOException,
+            IllegalArgumentException, ClassNotFoundException {
         Socket clientSocket = new Socket("127.0.0.1", 1337);
         ObjectOutputStream os = new ObjectOutputStream(clientSocket.getOutputStream());
         ObjectInputStream is = new ObjectInputStream(clientSocket.getInputStream());
 
+        os.writeObject("INSCRIRE");
 
+        System.out.print("Veuillez saisir votre prénom: ");
+        String prenom = scan.nextLine();
+        System.out.print("Veuillez saisir votre nom: ");
+        String nom = scan.nextLine();
+        System.out.print("Veuillez saisir votre email: ");
+        String email = scan.nextLine();
+        System.out.print("Veuillez saisir votre matricule: ");
+        String matricule = scan.nextLine();
+        System.out.print("Veuillez saisir le code du cours: ");
+        String code = scan.nextLine();
+        String name = null;
+        boolean nameInList = false;
+        for (Course c : listOfCourses) {
+             if (c.getCode().equals(code)) {
+                 name = c.getName();
+                 nameInList = true;
+             }
+        }
+        if (nameInList){
+            Course course = new Course(name, code, listOfCourses.get(0).getSession());
+            RegistrationForm registrationForm = new RegistrationForm(prenom,nom,email,matricule,course);
+            os.writeObject(registrationForm);
+            System.out.println((String) is.readObject());
+        }else {
+            throw new IllegalArgumentException("name not in list");
+        }
 
     }
 
 
     public static void main(String[] args){
         try {
+            ArrayList<Course> listOfCourses = new ArrayList<>();
             System.out.print(messagePrincipal);
             Scanner scan = new Scanner(System.in);
             while (scan.hasNext()){
 
-                affichageDesCours(scan);
+                affichageDesCours(scan,listOfCourses);
                 System.out.print(messageSecondaire);
-
+                System.out.println(listOfCourses);
                 String followingAnswer = scan.nextLine();
                 if (followingAnswer.equals("1") ){
                     main(args);
                 }else{
-                    System.out.println("on va s'inscrire!");
+                    inscriptionCours(scan,listOfCourses);
                 }
             }
             scan.close();
@@ -85,6 +117,9 @@ public class Client {
             ex.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }catch (IllegalArgumentException e){
+            System.out.println("Le cours n'est pas dans la liste des cours");
+            main(args);
         }
     }
 
