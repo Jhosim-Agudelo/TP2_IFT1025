@@ -1,17 +1,13 @@
 package clientGraphique;
 
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
+    private int v = 800;
+    private int v1 = 500;
 
     public static void main(String[] args) {
         launch(args);
@@ -19,6 +15,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        Vue laVue = new Vue();
+        Scene scene = new Scene(laVue,800,500);
+
+        primaryStage.setTitle("My Application");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
     }
 
