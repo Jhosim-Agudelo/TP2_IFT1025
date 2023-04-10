@@ -39,14 +39,20 @@ public class Controleur {
     }
 
     public void handleEnvoyerButtonClick() throws IOException, ClassNotFoundException {
-        Modele.inscriptionCours(
-                this.vue.getPrenomField(),
-                this.vue.getNomField(),
-                this.vue.getEmailField(),
-                this.vue.getMatriculeField(),
-                this.vue.getCourseSelected()
-        );
-
+        boolean checkEmail = this.modele.controleSaisieEmail(this.vue.getEmailField());
+        boolean checkMatricule = this.modele.controleSaisieMatricule(this.vue.getMatriculeField());
+        if (checkMatricule && checkEmail){
+            Modele.inscriptionCours(
+                    this.vue.getPrenomField(),
+                    this.vue.getNomField(),
+                    this.vue.getEmailField(),
+                    this.vue.getMatriculeField(),
+                    this.vue.getCourseSelected()
+            );
+            this.vue.successAlert();
+        }else{
+            this.vue.errorAlert(checkEmail,checkMatricule);
+        }
     }
 
 
