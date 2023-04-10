@@ -1,5 +1,6 @@
 package clientGraphique;
 
+import com.sun.webkit.Timer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,9 +16,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
+        Modele leModele = new Modele();
         Vue laVue = new Vue();
-        Scene scene = new Scene(laVue,800,500);
+        Controleur leControleur = new Controleur(leModele,laVue);
+        Scene scene = new Scene(laVue,v,v1);
 
         primaryStage.setTitle("My Application");
         primaryStage.setScene(scene);
