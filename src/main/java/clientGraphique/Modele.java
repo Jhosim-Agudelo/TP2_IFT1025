@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Modele {
-    private ObservableList<Course> listOfCourses = FXCollections.observableArrayList();
+    private static ObservableList<Course> listOfCourses = FXCollections.observableArrayList();
 
 
     public ObservableList<Course> affichageDesCours(String selectedTerm)
@@ -30,7 +30,19 @@ public class Modele {
 
     }
 
+    public static void inscriptionCours(String prenom,String nom,String email,String matricule,Course cours)
+            throws IOException, IllegalArgumentException, ClassNotFoundException {
 
+        Socket clientSocket = new Socket("127.0.0.1", 1337);
+        ObjectOutputStream os = new ObjectOutputStream(clientSocket.getOutputStream());
+        ObjectInputStream is = new ObjectInputStream(clientSocket.getInputStream());
+
+        os.writeObject("INSCRIRE");
+
+        RegistrationForm registrationForm = new RegistrationForm(prenom,nom,email,matricule,cours);
+        os.writeObject(registrationForm);
+
+    }
 
 
 

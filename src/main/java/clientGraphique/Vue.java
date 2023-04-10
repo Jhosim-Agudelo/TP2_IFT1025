@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import server.models.Course;
+import server.models.RegistrationForm;
 
 
 public class Vue  extends BorderPane {
@@ -21,8 +22,13 @@ public class Vue  extends BorderPane {
     private final TableView<Course> tableDeCours = new TableView<>();
 
     private final Button charger = new Button("Charger");
-
     private final ComboBox<String> dropDownButton = new ComboBox<>();
+    private final Button envoyer = new Button("envoyer");
+
+    private TextField prenomField = new TextField();
+    private TextField nomField = new TextField();
+    private TextField emailField = new TextField();
+    private TextField matriculeField = new TextField();
 
     private int v = 800;
 
@@ -57,7 +63,6 @@ public class Vue  extends BorderPane {
 
 
         tableDeCours.getColumns().setAll(code, cours);
-
         tableDeCours.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         StackPane centerPane = new StackPane(tableDeCours);
@@ -93,7 +98,6 @@ public class Vue  extends BorderPane {
         menuDroit.getChildren().add(titreDroit);
 
         rightSide.setTop(menuDroit);
-        Button envoyer = new Button("envoyer");
         envoyer.setPrefWidth(100);
 
         //gridPane
@@ -114,16 +118,12 @@ public class Vue  extends BorderPane {
 
 
         gridPane.add(prenom, 0, 0);
-        TextField prenomField = new TextField();
         gridPane.add(prenomField, 1, 0);
         gridPane.add(nom, 0, 1);
-        TextField nomField = new TextField();
         gridPane.add(nomField, 1, 1);
         gridPane.add(email, 0, 2);
-        TextField emailField = new TextField();
         gridPane.add(emailField, 1, 2);
         gridPane.add(matricule, 0, 3);
-        TextField matriculeField = new TextField();
         gridPane.add(matriculeField, 1, 3);
         gridPane.add(envoyer,1, 4);
         gridPane.setAlignment(Pos.TOP_CENTER);
@@ -135,12 +135,30 @@ public class Vue  extends BorderPane {
     public Button getButtonCharger(){
         return this.charger;
     }
+    public Button getButtonEnvoyer(){
+        return this.envoyer;
+    }
 
     public ComboBox<String> getDropDownButton(){
         return dropDownButton;
     }
     public void updateListDeCours(ObservableList<Course> listeDeCours){
         tableDeCours.setItems(listeDeCours);
+    }
+    public String getPrenomField(){
+        return this.prenomField.getText();
+    }
+    public String getNomField(){
+        return this.nomField.getText();
+    }
+    public String getEmailField(){
+        return this.emailField.getText();
+    }
+    public String getMatriculeField(){
+        return this.matriculeField.getText();
+    }
+    public Course getCourseSelected(){
+        return tableDeCours.getSelectionModel().getSelectedItem();
     }
 
 }

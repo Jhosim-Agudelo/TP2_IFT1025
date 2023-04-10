@@ -12,11 +12,20 @@ public class Controleur {
         this.modele = m;
         this.vue = v;
 
-        vue.getButtonCharger().setOnAction(e->{
+
+        vue.getButtonCharger().setOnAction(event->{
             try {
                 handleChargerButtonClick();
             } catch (IOException | ClassNotFoundException ex) {
                 throw new RuntimeException(ex);
+            }
+        });
+
+        vue.getButtonEnvoyer().setOnAction(event->{
+            try {
+                handleEnvoyerButtonClick();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -27,6 +36,17 @@ public class Controleur {
                         this.vue.getDropDownButton().getValue()
                 )
         );
+    }
+
+    public void handleEnvoyerButtonClick() throws IOException, ClassNotFoundException {
+        Modele.inscriptionCours(
+                this.vue.getPrenomField(),
+                this.vue.getNomField(),
+                this.vue.getEmailField(),
+                this.vue.getMatriculeField(),
+                this.vue.getCourseSelected()
+        );
+
     }
 
 
