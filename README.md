@@ -1,6 +1,9 @@
 # IFT1025-TP2-server
 
 <h3>Commentaire concernant jar files</h3>
-<p>Les jars files doivent être dans un meme folder qu'inscription.txt et cours.txt afin qu'ils fonctionnent 
-adéquatement.
+<p>Le jar file server doit être dans le meme répertoire qu'inscription.txt et cours.txt afin qu'il fonctionne 
+adéquatement lorsqu'il reçoit des requêtes.
+</p>
+<p>
+Les jars files sont situés dans classes/artifacts.
 </p>
