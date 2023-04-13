@@ -33,7 +33,7 @@ public class Server {
      * Constructeur qui permet d'instancier un objet de type Server et déclare la liste d'événement à gérer.
      *
      * @param port port de connection du serveur.
-     * @throws IOException
+     * @throws IOException s'il y a une erreur lors la création du serveur.
      */
     public Server(int port) throws IOException {
         this.server = new ServerSocket(port, 1);
@@ -44,7 +44,7 @@ public class Server {
     /**
      * Permet d'ajouter un gestionnaire d'événement à la liste de handlers.
      *
-     * @param h un gestionnaire d'événements
+     * @param h un gestionnaire d'événements.
      */
     public void addEventHandler(EventHandler h) {
         this.handlers.add(h);
@@ -65,6 +65,7 @@ public class Server {
     /**
      * Écoute continuellement le port du serveur, accepte le client qui se connecte et traite
      * les commandes envoyées par celui-ci.
+     *
      * @throws Exception s'il y a un problème de connection, de lecture ou écriture sur le stream ou
      * si la classe lue n'existe pas dans le programme.
      */
@@ -85,7 +86,7 @@ public class Server {
     }
 
     /**
-     * Écoute la commande du client, la traîte et avertis les gestionnaires d'événements.
+     * Écoute la commande du client, la traite et avertis les gestionnaires d'événements.
      *
      * @throws IOException s'il y a une erreur d'entrée dans les données recues du client.
      * @throws ClassNotFoundException si la classe lue n'existe pas dans le programme.
@@ -101,11 +102,11 @@ public class Server {
     }
 
     /**
-     * Traîte une commande de chaîne de caractères en la séparant et retourne une paire avec
+     * Traite une commande de chaîne de caractères en la séparant et retourne une paire avec
      * la commande et ses arguments.
      *
-     * @param line la chaîne de caractères de la commande à traiter
-     * @return une paire avec la première valeur étant la commande et la deuxième les arguments
+     * @param line la chaîne de caractères de la commande à traiter.
+     * @return une paire avec la première valeur étant la commande et la deuxième les arguments.
      */
     public Pair<String, String> processCommandLine(String line) {
         String[] parts = line.split(" ");
@@ -129,8 +130,8 @@ public class Server {
      * Prend les commandes recues par le client ainsi que les arguments et appels
      * les méthodes appropriées.
      *
-     * @param cmd commande du client
-     * @param arg argument du client
+     * @param cmd commande du client.
+     * @param arg argument du client.
      */
     public void handleEvents(String cmd, String arg) {
         if (cmd.equals(REGISTER_COMMAND)) {

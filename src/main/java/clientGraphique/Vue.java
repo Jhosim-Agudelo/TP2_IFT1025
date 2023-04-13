@@ -15,7 +15,11 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import server.models.Course;
 
-
+/**
+ * Définie la partie graphique de l'interface du client, permet de visualiser
+ * la liste des cours et le formulaire d'inscription à remplir et est une sous-classe de
+ * borderPane.
+ */
 public class Vue  extends BorderPane {
 
     private final TableView<Course> tableDeCours = new TableView<>();
@@ -29,7 +33,11 @@ public class Vue  extends BorderPane {
     private final TextField emailField = new TextField();
     private final TextField matriculeField = new TextField();
 
+    /**
+     * Constructeur de la classe Vue, Initialise les éléments visuels de l'application.
+     */
     public Vue(){
+
         this.setBackground(new Background(new BackgroundFill(Color.BEIGE,CornerRadii.EMPTY,Insets.EMPTY)));
 
         BorderPane leftSide = new BorderPane();
@@ -41,7 +49,7 @@ public class Vue  extends BorderPane {
         leftSide.setStyle("-fx-border-color: #d4c8c8; -fx-border-width: 2px;");
         rightSide.setStyle("-fx-border-color: #d4c8c8; -fx-border-width: 2px;");
 
-        // titles
+        // Titres
         Text titreGauche = new Text("Liste des cours");
         titreGauche.setFont(Font.font("Arial",25));
 
@@ -82,7 +90,7 @@ public class Vue  extends BorderPane {
         bottomGauche.setMinSize(400,50);
         bottomGauche.setStyle("-fx-border-color: #d4c8c8; -fx-border-width: 2px;");
 
-        // bouton a options
+        // bouton à options
 
         dropDownButton.setPromptText("Choisir session");
         dropDownButton.getItems().addAll("Automne", "Ete","Hiver");
@@ -131,14 +139,19 @@ public class Vue  extends BorderPane {
         gridPane.add(matriculeField, 1, 3);
 
         gridPane.add(envoyer,1, 4);
-        GridPane.setHalignment(envoyer, HPos.CENTER);
 
+        GridPane.setHalignment(envoyer, HPos.CENTER);
         gridPane.setAlignment(Pos.TOP_CENTER);
         rightSide.setCenter(gridPane);
 
     }
 
-
+    /**
+     * Affiche une alerte d'erreur si l'email ou la matricule ne sont pas valides.
+     *
+     * @param emailalert  boolean représentant s'il y a une erreur dans l'email.
+     * @param matriculeAlert boolean représentant s'il y a une erreur dans la matricule.
+     */
     public void errorAlert(boolean emailalert,boolean matriculeAlert){
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Error");
@@ -161,6 +174,10 @@ public class Vue  extends BorderPane {
             errorAlert.showAndWait();
         }
     }
+
+    /**
+     * Affiche un message de succès et réinitialise les champs d'entrée de l'usager.
+     */
     public void successAlert(){
         Alert messageSucces = new Alert(Alert.AlertType.INFORMATION);
         messageSucces.setTitle("Message");
@@ -176,31 +193,84 @@ public class Vue  extends BorderPane {
         matriculeField.setText("");
         matriculeField.setStyle(envoyer.getStyle());
     }
+
+    /**
+     * Renvoi le bouton Charger.
+     *
+     * @return le bouton charger.
+     */
     public Button getButtonCharger(){
         return this.charger;
     }
+
+    /**
+     * Renvoi le bouton envoyer.
+     *
+     * @return bouton envoyer.
+     */
     public Button getButtonEnvoyer(){
         return this.envoyer;
     }
 
+    /**
+     * Renvoi la boîte de séléction.
+     *
+     * @return boîte de séléction.
+     */
     public ComboBox<String> getDropDownButton(){
         return dropDownButton;
     }
+
+    /**
+     * Met à jour la liste des cours dans l'affichage graphique.
+     *
+     * @param listeDeCours liste contetant les cours de la session demandée.
+     */
     public void updateListDeCours(ObservableList<Course> listeDeCours){
         tableDeCours.setItems(listeDeCours);
     }
+
+    /**
+     * Retourne la valeur de la chaîne qui est dans le champ du prénom.
+     *
+     * @return le prénom de l'usager qui a été écrit.
+     */
     public String getPrenomField(){
         return this.prenomField.getText();
     }
+
+    /**
+     * Retourne la valeur de la chaîne qui est dans le champ du nom.
+     *
+     * @return nom de l'usager qui a été écrit.
+     */
     public String getNomField(){
         return this.nomField.getText();
     }
+
+    /**
+     * Retourne la valeur de la chaîne qui est dans le champ de l'email.
+     *
+     * @return l'email de l'usager qui a été écrit.
+     */
     public String getEmailField(){
         return this.emailField.getText();
     }
+
+    /**
+     * Retourne la valeur de la chaîne qui est dans le champ de la matricule.
+     *
+     * @return la matricule de l'usager qui a été écrite.
+     */
     public String getMatriculeField(){
         return this.matriculeField.getText();
     }
+
+    /**
+     * Retourne le cours qui est choisi dans la table d'affichage.
+     *
+     * @return le cours qui est sélectionné dans la table des cours.
+     */
     public Course getCourseSelected(){
         return tableDeCours.getSelectionModel().getSelectedItem();
     }

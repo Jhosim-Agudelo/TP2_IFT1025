@@ -3,11 +3,23 @@ package clientGraphique;
 
 import java.io.IOException;
 
+/**
+ * Relie le model et la vue de l'application.
+ */
 public class Controleur {
 
     private final Modele modele;
     private final Vue vue;
 
+    /**
+     * Constructeur du contrôleur qui relie le model et la vue, traite aussi les événements
+     * du click du bouton charger et envoyer.
+     *
+     * @param m le model.
+     * @param v la vue.
+     * @throws IOException s'il y a une erreur de lecture du fichier ou de l'écriture de l'objet dans le flux.
+     * @throws ClassNotFoundException si la classe lue n'existe pas dans le programme.
+     */
     public Controleur(Modele m,Vue v){
         this.modele = m;
         this.vue = v;
@@ -17,7 +29,8 @@ public class Controleur {
             try {
                 handleChargerButtonClick();
             } catch (IOException | ClassNotFoundException ex) {
-                throw new RuntimeException(ex);
+                System.out.println("erreur se produit lors de la lecture de l'objet, l'écriture dans un" +
+                        "fichier ou dans le flux de sortie.");
             }
         });
 
@@ -25,11 +38,19 @@ public class Controleur {
             try {
                 handleEnvoyerButtonClick();
             } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                System.out.println("erreur se produit lors de la lecture de l'objet, l'écriture dans un" +
+                        "fichier ou dans le flux de sortie.");
             }
         });
     }
 
+    /**
+     *  Met à jour la liste des cours affichée dans l'interface graphique selon la valeur courante
+     *  de la boîte de selection.
+     *
+     * @throws IOException s'il y a une erreur de lecture du fichier ou de l'écriture de l'objet dans le flux.
+     * @throws ClassNotFoundException si la classe lue n'existe pas dans le programme.
+     */
     public void handleChargerButtonClick() throws IOException, ClassNotFoundException {
         this.vue.updateListDeCours(
                 this.modele.affichageDesCours(
@@ -38,6 +59,12 @@ public class Controleur {
         );
     }
 
+    /**
+     * Envoi une requête d'inscription au serveur si le courriel et la matricule sont valides.
+     *
+     * @throws IOException s'il y a une erreur de lecture du fichier ou de l'écriture de l'objet dans le flux.
+     * @throws ClassNotFoundException si la classe lue n'existe pas dans le programme.
+     */
     public void handleEnvoyerButtonClick() throws IOException, ClassNotFoundException {
         boolean checkEmail = this.modele.controleSaisieEmail(this.vue.getEmailField());
         boolean checkMatricule = this.modele.controleSaisieMatricule(this.vue.getMatriculeField());
