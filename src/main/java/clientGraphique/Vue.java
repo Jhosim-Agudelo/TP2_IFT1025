@@ -152,12 +152,13 @@ public class Vue  extends BorderPane {
      * @param emailalert  boolean représentant s'il y a une erreur dans l'email.
      * @param matriculeAlert boolean représentant s'il y a une erreur dans la matricule.
      */
-    public void errorAlert(boolean emailalert,boolean matriculeAlert){
+    public void errorAlert(boolean emailalert,boolean matriculeAlert,boolean selectionAlert){
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Error");
         errorAlert.setHeaderText("Error");
         String messageErreurEmail = "le champ 'Email' est invalide!\n";
         String messageErreurMatricule = "le champ 'Matricule' est invalide!\n";
+        String messageErreurSelection = "Vous devez sélectionner un cours!\n";
         String messageAffiche= "";
 
         if (!emailalert){
@@ -168,8 +169,12 @@ public class Vue  extends BorderPane {
             messageAffiche += messageErreurMatricule;
             this.matriculeField.setStyle("-fx-border-color: red");
         }
+        if (!selectionAlert){
+            messageAffiche += messageErreurSelection;
+            this.tableDeCours.setStyle("-fx-border-color: red");
+        }
 
-        if(!emailalert || !matriculeAlert){
+        if(!emailalert || !matriculeAlert || !selectionAlert){
             errorAlert.setContentText(messageAffiche);
             errorAlert.showAndWait();
         }
@@ -192,6 +197,7 @@ public class Vue  extends BorderPane {
         emailField.setStyle(envoyer.getStyle());
         matriculeField.setText("");
         matriculeField.setStyle(envoyer.getStyle());
+        tableDeCours.setStyle(envoyer.getStyle());
     }
 
     /**
@@ -274,5 +280,14 @@ public class Vue  extends BorderPane {
     public Course getCourseSelected(){
         return tableDeCours.getSelectionModel().getSelectedItem();
     }
+
+    /**
+     * Vérifie si un cours a été sélectionné.
+     *
+     * @return boolean false si l'usager n'a pas sélectionné de cours.
+     */
+    public boolean checkCourseSelection(){
+        return !(tableDeCours.getSelectionModel().getSelectedItem() == null);
+    };
 
 }

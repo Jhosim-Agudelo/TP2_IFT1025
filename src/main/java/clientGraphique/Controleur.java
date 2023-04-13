@@ -60,7 +60,8 @@ public class Controleur {
     }
 
     /**
-     * Envoi une requête d'inscription au serveur si le courriel et la matricule sont valides.
+     * Envoi une requête d'inscription au serveur si le courriel, la matricule sont valides et si un cours a bel et
+     * bien été choisi.
      *
      * @throws IOException s'il y a une erreur de lecture du fichier ou de l'écriture de l'objet dans le flux.
      * @throws ClassNotFoundException si la classe lue n'existe pas dans le programme.
@@ -68,7 +69,8 @@ public class Controleur {
     public void handleEnvoyerButtonClick() throws IOException, ClassNotFoundException {
         boolean checkEmail = this.modele.controleSaisieEmail(this.vue.getEmailField());
         boolean checkMatricule = this.modele.controleSaisieMatricule(this.vue.getMatriculeField());
-        if (checkMatricule && checkEmail){
+        boolean checkCourseSelection = this.vue.checkCourseSelection();
+        if (checkMatricule && checkEmail && checkCourseSelection){
             Modele.inscriptionCours(
                     this.vue.getPrenomField(),
                     this.vue.getNomField(),
@@ -78,7 +80,7 @@ public class Controleur {
             );
             this.vue.successAlert();
         }else{
-            this.vue.errorAlert(checkEmail,checkMatricule);
+            this.vue.errorAlert(checkEmail,checkMatricule,checkCourseSelection);
         }
     }
 
