@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"clientGraphique","l":"Controleur"},{"p":"clientGraphique","l":"Main"},{"p":"clientGraphique","l":"Modele"},{"p":"clientGraphique","l":"Vue"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"clientGraphique","l":"Controleur"},{"p":"clientGraphique","l":"Main"},{"p":"clientGraphique","l":"MainForJar"},{"p":"clientGraphique","l":"Modele"},{"p":"clientGraphique","l":"Vue"}];updateSearchResults();
