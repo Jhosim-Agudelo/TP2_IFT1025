@@ -1,1 +1,3 @@
 Automne IFT2255 12345678    Michalis    Famelis mfamelis@iro.umontreal.ca
+Hiver	IFT1025	12345678	Jhosim	Agudelo	jhosimagudelo@hotmail.com
+Hiver	IFT2125	12345677	John	Doe	johndoe@gmail.ca
