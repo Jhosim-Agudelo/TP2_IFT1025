@@ -6,4 +6,4 @@ adéquatement lorsqu'il reçoit des requêtes.
 </p>
 <p>
 Les jars files sont situés dans classes/artifacts.
-</p>
+<p>Les jars sont build sur la version jdk 19.0.1 de java</p>
